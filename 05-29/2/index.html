@@ -4,14 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <style>
+      body {
+        height: 100vh;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: auto;
+      }
+
+      .mr-5 {
+        margin: 5px 0;
+      }
+    </style>
+    <title>Area Calculator</title>
   </head>
 
   <body>
+    <h1>Area Calculator</h1>
     <form action="show.php" method="GET">
-      <input type="text" name="name" id="name" placeholder="Enter Your Name" />
-      <input type="submit" value="Send" />
-      <input type="reset" value="Clear" />
+      <label for="width">Enter Width:</label>
+      <input
+        type="text"
+        name="width"
+        id="width"
+        class="mr-5"
+        placeholder="Enter width"
+      />
+      <br />
+      <label for="height">Enter Height:</label>
+      <input
+        type="text"
+        name="height"
+        id="height"
+        class="mr-5"
+        placeholder="Enter height"
+      />
+      <br />
+      <input type="submit" class="mr-5" value="Calculate Area" />
+      <input type="reset" class="mr-5" value="Clear" />
     </form>
   </body>
 </html>

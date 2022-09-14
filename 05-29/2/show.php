@@ -1,6 +1,7 @@
 <?php
 
-$name = $_GET['name'];
+$width = $_GET['width'];
+$height = $_GET['height'];
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@ $name = $_GET['name'];
 </head>
 
 <body>
-    <h1>Hello! <?= $name ?></h1>
+    <h1>Area : <?= $width * $height ?></h1>
 </body>
 
 </html>

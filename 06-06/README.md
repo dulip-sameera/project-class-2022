@@ -1,7 +1,5 @@
 # Lesson topics of the day
 
-## 1 - Static php page
+### 1 - server that output web view (Traditional Web Server)
 
-## 2 - Dynamic php page without database connection
-
-## 3 - Dynamic php page with database connection
+### 2 - Server that output data

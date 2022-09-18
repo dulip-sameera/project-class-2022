@@ -1,10 +1,11 @@
 <?php
 require_once './db.php';
 
-$_sql_get_all_employees = "SELECT * FROM employee";
+// $_sql_get_all_employees = "SELECT id, name, age, (SELECT name FROM gender WHERE id = gender_id) AS gender FROM employee";
+
+$_sql_get_all_employees = "SELECT e.id, e.name, e.age, g.name AS gender  FROM employee e INNER JOIN gender g ON e.gender_id = g.id";
 
 $result = mysqli_query($conn, $_sql_get_all_employees);
-
 ?>
 
 <!DOCTYPE html>
@@ -43,13 +44,7 @@ $result = mysqli_query($conn, $_sql_get_all_employees);
                     <td><?= $employee['id'] ?></td>
                     <td><?= $employee['name'] ?></td>
                     <td><?= $employee['age'] ?></td>
-                    <td>
-                        <?php
-                        $_sql_get_gender_name = "SELECT name FROM gender WHERE id=" . $employee['gender_id'];
-                        $genderName = mysqli_fetch_assoc(mysqli_query($conn, $_sql_get_gender_name))['name'];
-                        echo $genderName;
-                        ?>
-                    </td>
+                    <td><?= $employee['gender'] ?></td>
                 </tr>
             <?php endwhile; ?>
         </tbody>

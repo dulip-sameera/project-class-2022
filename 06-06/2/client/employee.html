@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Employees</title>
+    <style>
+      #container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      table,
+      th,
+      td,
+      tr {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+
+      td,
+      th {
+        width: 50px;
+        text-align: center;
+      }
+
+      #form {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <section id="form">
+        <h1>Add Employee</h1>
+        <form>
+          <label for="name">Name: </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Ex: Saman"
+          /><br />
+          <label for="age">Age: </label>
+          <input type="text" name="age" id="age" placeholder="Ex: 22" /><br />
+          <label for="gender">Gender: </label><br />
+          <select name="gender" id="gender"></select>
+          <br /><br />
+          <input type="reset" id="clear" value="Clear" />
+          <input type="button" id="submit" value="Add Employee" />
+        </form>
+      </section>
+
+      <section id="view"></section>
+    </div>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

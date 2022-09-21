@@ -22,8 +22,7 @@
     <h1>Come Again</h1>
     <hr>
     <?php
-    session_start();
-    session_destroy();
+    setcookie('userName', '', time() - 60 * 2);
     include './login.html';
     ?>
 </body>

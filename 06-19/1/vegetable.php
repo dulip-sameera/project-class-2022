@@ -1,15 +1,9 @@
 <?php
-session_start();
-
-if (!(isset($_SESSION['userName']) && time() - $_SESSION['lastActive'] < 10)) {
+if (!isset($_COOKIE['userName'])) {
     echo 'Time Out';
-    session_destroy();
     include "./login.html";
     die();
 }
-
-
-$_SESSION['lastActive'] = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +32,7 @@ $_SESSION['lastActive'] = time();
 
 <body>
     <h1>Welcome to Harvest Super</h1>
-    <h4>You are login as <?= $_SESSION['userName'] ?></h4>
+    <h4>You are login as <?= $_COOKIE['userName'] ?></h4>
     <h4>(<a href="logout.php">logout</a>)</h4>
 
     <h1>Vegetables</h1>

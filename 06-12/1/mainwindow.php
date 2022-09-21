@@ -1,9 +1,13 @@
 <?php
 
-if (!isset($_SESSION['userName'])) {
+if (!(isset($_SESSION['userName']) && time() - $_SESSION['lastActive'] < 10)) {
+    echo 'Time Out';
+    session_destroy();
     include "./login.html";
     die();
 }
+
+$_SESSION['lastActive'] = time();
 
 ?>
 

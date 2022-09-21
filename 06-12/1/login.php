@@ -11,6 +11,7 @@ $password = $_POST['password'];
 if ($userName == "root" && $password == "1234") {
     session_start();
     $_SESSION['userName'] = $userName;
+    $_SESSION['lastActive'] = time();
     include "./mainwindow.php";
 } else {
     echo "Incorrect user name or password!";

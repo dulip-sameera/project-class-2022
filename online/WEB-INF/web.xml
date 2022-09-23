@@ -1,0 +1,15 @@
+
+<web-app version="5.0">
+
+  <servlet>
+    <servlet-name>JMXProxy</servlet-name>
+    <servlet-class>org.apache.catalina.manager.JMXProxyServlet</servlet-class>
+  </servlet>
+
+  <!-- Define the Online Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>Manager</servlet-name>
+      <url-pattern>/text/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

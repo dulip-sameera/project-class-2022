@@ -14,40 +14,111 @@
       let genders;
 
       function initialize() {
-        const http = new XMLHttpRequest();
-        http.onreadystatechange = () => {
-          if (http.readyState === XMLHttpRequest.DONE) {
-            if (http.status === 200) {
-              employees = JSON.parse(http.responseText);
-              fillTable();
-            }
-          }
-        };
-        http.open("GET", "./employeecontroller.php", true);
-        http.send();
+        btnClear.addEventListener("click", clearForm);
+        btnDelete.setAttribute("disabled", "disabled");
+        btnUpdate.setAttribute("disabled", "disabled");
+
+        genders = get("./gendercontroller.php");
+        fillCombo(genders, cmbGender, "name", "Select a gender");
+        fillCombo(genders, cmbSearchGender, "name", "Select a gender");
+        employees = get("./employeecontroller.php");
+        fillTable(employees, tblMain, [
+          "name",
+          "age",
+          function (e) {
+            return e.gender.name;
+          },
+        ]);
       }
 
       function loadView() {
         fillTable();
       }
 
-      function fillTable() {
-        const tbody = document.getElementById("tblMain").children[1];
-        for (let i = 0; i < employees.length; i++) {
-          const employee = employees[i];
-
+      function fillTable(data, table, props) {
+        for (let i = 0; i < data.length; i++) {
           const tr = document.createElement("tr");
-          const tdName = document.createElement("td");
-          tdName.textContent = employee.name;
+          for (let j = 0; j < props.length; j++) {
+            const td = document.createElement("td");
+            td.textContent =
+              typeof props[j] === "function"
+                ? props[j](data[i])
+                : data[i][props[j]];
+            tr.appendChild(td);
+          }
 
-          const tdAge = document.createElement("td");
-          tdAge.textContent = employee.age;
+          const btn = document.createElement("input");
+          const td = document.createElement("td");
+          btn.type = "button";
+          btn.value = "Modify";
+          btn.addEventListener("click", () => {
+            modify(data[i]);
+          });
+          td.appendChild(btn);
+          tr.appendChild(td);
 
-          const tdGender = document.createElement("td");
-          tdGender.textContent = employee.gender.name;
-          tr.append(tdName, tdAge, tdGender);
-          tbody.appendChild(tr);
+          table.children[1].appendChild(tr);
         }
+      }
+
+      function fillCombo(data, combo, prop, hint) {
+        const option = document.createElement("option");
+        option.textContent = hint;
+        option.value = null;
+        option.setAttribute("disabled", "disabled");
+        option.setAttribute("selected", "selected");
+        combo.appendChild(option);
+        for (let i = 0; i < data.length; i++) {
+          const option = document.createElement("option");
+          option.textContent = data[i][prop];
+          option.value = JSON.stringify(data[i]);
+          combo.appendChild(option);
+        }
+      }
+
+      function modify(employee) {
+        let userConfirm = window.confirm(
+          `Are you sure to modify this employee ${employee.name}`
+        );
+
+        if (userConfirm) {
+          txtName.value = employee.name;
+          txtAge.value = employee.age;
+          cmbGender.value = JSON.stringify(employee.gender);
+
+          btnAdd.setAttribute("disabled", "disabled");
+          btnDelete.removeAttribute("disabled");
+          btnUpdate.removeAttribute("disabled");
+        }
+      }
+
+      function clearForm() {
+        let userConfirm = window.confirm("Do you want to clear the form...");
+
+        if (userConfirm) {
+          txtName.value = "";
+          txtAge.value = "";
+          cmbGender.value = null;
+
+          btnDelete.setAttribute("disabled", "disabled");
+          btnUpdate.setAttribute("disabled", "disabled");
+          btnAdd.removeAttribute("disabled");
+        }
+      }
+
+      //Support Functions
+
+      function get(url) {
+        const http = new XMLHttpRequest();
+        // made synchronous because the data will return only after data has received and without that data program cant continue properly
+        http.open("GET", url, false);
+        http.send();
+
+        if (http.status === 200) {
+          return JSON.parse(http.responseText);
+        }
+
+        return null;
       }
     </script>
   </head>

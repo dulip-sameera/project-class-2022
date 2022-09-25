@@ -1,8 +1,8 @@
 <?php
 
 require_once "db.php";
-require_once "employee.php";
 require_once "genderdao.php";
+require_once "employee.php";
 
 class EmployeeDao
 {

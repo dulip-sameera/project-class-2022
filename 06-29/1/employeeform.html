@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Form</title>
+
+    <script>
+      window.addEventListener("load", initialize);
+
+      let ajax;
+      let employees;
+      let genders;
+
+      function initialize() {
+        const http = new XMLHttpRequest();
+        http.onreadystatechange = () => {
+          if (http.readyState === XMLHttpRequest.DONE) {
+            if (http.status === 200) {
+              employees = JSON.parse(http.responseText);
+              fillTable();
+            }
+          }
+        };
+        http.open("GET", "./employeecontroller.php", true);
+        http.send();
+      }
+
+      function loadView() {
+        fillTable();
+      }
+
+      function fillTable() {
+        const tbody = document.getElementById("tblMain").children[1];
+        for (let i = 0; i < employees.length; i++) {
+          const employee = employees[i];
+
+          const tr = document.createElement("tr");
+          const tdName = document.createElement("td");
+          tdName.textContent = employee.name;
+
+          const tdAge = document.createElement("td");
+          tdAge.textContent = employee.age;
+
+          const tdGender = document.createElement("td");
+          tdGender.textContent = employee.gender.name;
+          tr.append(tdName, tdAge, tdGender);
+          tbody.appendChild(tr);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Employee Detail Manager</h1>
+
+    <h3>===========================Search===========================</h3>
+    <label for="txtSearchName">Name: </label
+    ><input type="text" id="txtSearchName" size="20" /> <br /><br />
+    <label for="cmbSearchGender">Gender: </label
+    ><select id="cmbSearchGender"></select>
+    <br /><br />
+    <button id="btnSearch">Search</button>
+    <button id="btnSearchClear">Clear</button>
+
+    <h3>===========================View===========================</h3>
+
+    <table id="tblMain" border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>===========================View===========================</h3>
+
+    <label for="txtName">Name: </label
+    ><input type="text" id="txtName" size="20" /><br /><br />
+    <label for="txtAge">Age: </label
+    ><input type="text" id="txtAge" size="20" /><br /><br />
+    <label for="cmbGender">Gender: </label
+    ><select id="cmbGender"></select
+    ><br /><br />
+    <button id="btnDelete">Delete</button>
+    <button id="btnUpdate">Update</button>
+    <button id="btnClear">Clear</button>
+    <button id="btnAdd">Add</button>
+  </body>
+</html>

@@ -3,8 +3,9 @@
 class Gender
 {
 
-    private $id;
-    private $name;
+    public $id;
+    public $name;
+    // private $NO_OF_FIELDS = 2;
 
     function __construct()
     {

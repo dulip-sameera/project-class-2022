@@ -16,5 +16,7 @@ class CommonDao
         if (!$connection) {
             die("Connection Failed:" . $connection->connect_error);
         }
+
+        return $connection;
     }
 }

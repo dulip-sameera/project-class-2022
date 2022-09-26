@@ -16,6 +16,7 @@
       function initialize() {
         btnClear.addEventListener("click", clearForm);
         btnSearch.addEventListener("click", btnSearchMC);
+        btnSearchClear.addEventListener("click", btnSearchClearMC);
 
         btnDelete.setAttribute("disabled", "disabled");
         btnUpdate.setAttribute("disabled", "disabled");
@@ -62,6 +63,11 @@
         // get the employees from the database using ajax request
         employees = get(`./employeecontroller.php?${query}`);
         console.log(employees);
+      }
+
+      function btnSearchClearMC() {
+        txtSearchName.value = "";
+        cmbSearchGender.value = null;
       }
 
       function fillTable(data, table, props) {

@@ -15,6 +15,8 @@
 
       function initialize() {
         btnClear.addEventListener("click", clearForm);
+        btnSearch.addEventListener("click", btnSearchMC);
+
         btnDelete.setAttribute("disabled", "disabled");
         btnUpdate.setAttribute("disabled", "disabled");
 
@@ -33,6 +35,33 @@
 
       function loadView() {
         fillTable();
+      }
+
+      function btnSearchMC() {
+        const name = txtSearchName.value;
+        const gender = JSON.parse(cmbSearchGender.value);
+
+        let query = "";
+
+        // if there is a name
+        if (name !== "") {
+          query += `name=${name}`;
+        }
+
+        // if there is a gender
+        if (gender !== null) {
+          if (name !== "") {
+            // if there are both name and gender
+            query += `&gender=${gender.id}`;
+          } else {
+            // if there isn't name
+            query += `gender=${gender.id}`;
+          }
+        }
+
+        // get the employees from the database using ajax request
+        employees = get(`./employeecontroller.php?${query}`);
+        console.log(employees);
       }
 
       function fillTable(data, table, props) {
